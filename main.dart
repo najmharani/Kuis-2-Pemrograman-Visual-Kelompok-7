@@ -4,112 +4,285 @@ void main() {
   runApp(const MyApp());
 }
 
-class MyApp extends StatelessWidget {
-  const MyApp({super.key});
-
-  // This widget is the root of your application.
+class MyApp extends StatefulWidget {
+  const MyApp({Key? key}) : super(key: key);
   @override
+  MyAppState createState() {
+    return MyAppState();
+  }
+}
+
+class MyAppState extends State<MyApp> {
+  @override
+  List<Pendapatan> data = [
+    Pendapatan(
+      gambar:
+          'https://flutter.github.io/assets-for-api-docs/assets/widgets/owl-2.jpg',
+      nama: 'Securinvest Sharia Sukuk Fund',
+      skor: '4,1',
+      jenis: 'Pendapatan Tetap',
+      imbalHasil1: '6.2%',
+      imbalHasil2: '8.5%',
+      hargaUnit: 'Rp.1.080',
+      danaKelolaan: 'Rp.3.3T',
+    ),
+    Pendapatan(
+      gambar:
+          'https://flutter.github.io/assets-for-api-docs/assets/widgets/owl-2.jpg',
+      nama: 'Start Stable Income Fund',
+      skor: '3.2',
+      jenis: 'Pendapatan Tetap',
+      imbalHasil1: '12%',
+      imbalHasil2: '50%',
+      hargaUnit: 'Rp.1.070',
+      danaKelolaan: 'Rp.256M',
+    ),
+    Pendapatan(
+      gambar:
+          'https://flutter.github.io/assets-for-api-docs/assets/widgets/owl-2.jpg',
+      nama: 'Syailendra Pendapatan Tetap Premium',
+      skor: '5.2',
+      jenis: 'Pendapatan Tetap',
+      imbalHasil1: '15%',
+      imbalHasil2: '66%',
+      hargaUnit: 'Rp.1.270',
+      danaKelolaan: 'Rp.306M',
+    ),
+  ];
+
+  bool imbalHasil = false;
+
   Widget build(BuildContext context) {
     return MaterialApp(
-      title: 'Flutter Demo',
-      theme: ThemeData(
-        // This is the theme of your application.
-        //
-        // Try running your application with "flutter run". You'll see the
-        // application has a blue toolbar. Then, without quitting the app, try
-        // changing the primarySwatch below to Colors.green and then invoke
-        // "hot reload" (press "r" in the console where you ran "flutter run",
-        // or simply save your changes to "hot reload" in a Flutter IDE).
-        // Notice that the counter didn't reset back to zero; the application
-        // is not restarted.
-        primarySwatch: Colors.blue,
+      title: 'Kuis 2 Provis - Kelompok 7',
+      home: Scaffold(
+        appBar: AppBar(
+            leading: const FlutterLogo(),
+            backgroundColor: Colors.blueGrey,
+            title: const Text('Quiz Flutter'),
+            actions: const <Widget>[ButtonNamaKelompok(), ButtonPerjanjian()]),
+        body: Column(
+          children: <Widget>[
+            Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: <Widget>[
+                Container(
+                  padding: EdgeInsets.all(14),
+                  child: Text(
+                    "Periode Imbal Hasil",
+                    style: const TextStyle(
+                        fontSize: 22.0,
+                        fontWeight: FontWeight.w500,
+                        color: Color.fromARGB(255, 66, 62, 62)),
+                  ),
+                ),
+                Container(
+                  padding: EdgeInsets.all(14),
+                  child: DropdownButton(
+                    value: imbalHasil,
+                    underline: Container(
+                      decoration: const BoxDecoration(
+                          border: Border(
+                              bottom:
+                                  BorderSide(width: 1.0, color: Colors.grey))),
+                    ),
+                    items: const [
+                      DropdownMenuItem(
+                        value: false,
+                        child: Text("6 bulan"),
+                      ),
+                      DropdownMenuItem(
+                        value: true,
+                        child: Text("1 tahun"),
+                      ),
+                    ],
+                    onChanged: (bool? newValue) {
+                      setState(() {
+                        if (newValue != null) {
+                          imbalHasil = newValue;
+                        }
+                      });
+                    },
+                  ),
+                ),
+              ],
+            ),
+            const SizedBox(
+              height: 16.0,
+            ),
+            Expanded(
+                child: ListView.builder(
+                    itemCount: data.length,
+                    itemBuilder: (context, index) {
+                      return Card(
+                          child: Column(children: [
+                        ListTile(
+                            onTap: () {},
+                            leading: Image.network("${data[index].gambar}"),
+                            trailing: Image.network("${data[index].gambar}"),
+                            title: Text("${data[index].nama}"),
+                            subtitle: Text(
+                                "${data[index].skor} - ${data[index].jenis}"),
+                            tileColor: Colors.white70),
+                        Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                          children: [
+                            Container(
+                                child: Column(
+                                    mainAxisAlignment: MainAxisAlignment.center,
+                                    children: [
+                                  Container(
+                                      decoration: BoxDecoration(),
+                                      padding: EdgeInsets.all(14),
+                                      child: Text('Imbal Hasil')),
+                                  Container(
+                                      decoration: BoxDecoration(),
+                                      padding: EdgeInsets.all(14),
+                                      child: imbalHasil
+                                          ? Text("${data[index].imbalHasil2}")
+                                          : Text("${data[index].imbalHasil1}")),
+                                ])),
+                            Container(
+                                child: Column(
+                                    mainAxisAlignment: MainAxisAlignment.center,
+                                    children: [
+                                  Container(
+                                      decoration: BoxDecoration(),
+                                      padding: EdgeInsets.all(14),
+                                      child: Text('Harga Unit')),
+                                  Container(
+                                      decoration: BoxDecoration(),
+                                      padding: EdgeInsets.all(14),
+                                      child: Text("${data[index].hargaUnit}")),
+                                ])),
+                            Container(
+                                child: Column(
+                                    mainAxisAlignment: MainAxisAlignment.center,
+                                    children: [
+                                  Container(
+                                      decoration: BoxDecoration(),
+                                      padding: EdgeInsets.all(14),
+                                      child: Text('Dana Kelolaan')),
+                                  Container(
+                                      decoration: BoxDecoration(),
+                                      padding: EdgeInsets.all(14),
+                                      child:
+                                          Text("${data[index].danaKelolaan}")),
+                                ])),
+                          ],
+                        )
+                      ]));
+                    }))
+          ],
+        ),
       ),
-      home: const MyHomePage(title: 'Flutter Demo Home Page'),
     );
   }
 }
 
-class MyHomePage extends StatefulWidget {
-  const MyHomePage({super.key, required this.title});
+class Pendapatan {
+  final String gambar;
+  final String nama;
+  final String skor;
+  final String jenis;
+  final String imbalHasil1;
+  final String imbalHasil2;
+  final String hargaUnit;
+  final String danaKelolaan;
 
-  // This widget is the home page of your application. It is stateful, meaning
-  // that it has a State object (defined below) that contains fields that affect
-  // how it looks.
-
-  // This class is the configuration for the state. It holds the values (in this
-  // case the title) provided by the parent (in this case the App widget) and
-  // used by the build method of the State. Fields in a Widget subclass are
-  // always marked "final".
-
-  final String title;
-
-  @override
-  State<MyHomePage> createState() => _MyHomePageState();
+  Pendapatan(
+      {required this.gambar,
+      required this.nama,
+      required this.skor,
+      required this.jenis,
+      required this.imbalHasil1,
+      required this.imbalHasil2,
+      required this.hargaUnit,
+      required this.danaKelolaan});
 }
 
-class _MyHomePageState extends State<MyHomePage> {
-  int _counter = 0;
-
-  void _incrementCounter() {
-    setState(() {
-      // This call to setState tells the Flutter framework that something has
-      // changed in this State, which causes it to rerun the build method below
-      // so that the display can reflect the updated values. If we changed
-      // _counter without calling setState(), then the build method would not be
-      // called again, and so nothing would appear to happen.
-      _counter++;
-    });
-  }
+class Kartu extends StatelessWidget {
+  const Kartu({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
-    // This method is rerun every time setState is called, for instance as done
-    // by the _incrementCounter method above.
-    //
-    // The Flutter framework has been optimized to make rerunning build methods
-    // fast, so that you can just rebuild anything that needs updating rather
-    // than having to individually change instances of widgets.
-    return Scaffold(
-      appBar: AppBar(
-        // Here we take the value from the MyHomePage object that was created by
-        // the App.build method, and use it to set our appbar title.
-        title: Text(widget.title),
-      ),
-      body: Center(
-        // Center is a layout widget. It takes a single child and positions it
-        // in the middle of the parent.
-        child: Column(
-          // Column is also a layout widget. It takes a list of children and
-          // arranges them vertically. By default, it sizes itself to fit its
-          // children horizontally, and tries to be as tall as its parent.
-          //
-          // Invoke "debug painting" (press "p" in the console, choose the
-          // "Toggle Debug Paint" action from the Flutter Inspector in Android
-          // Studio, or the "Toggle Debug Paint" command in Visual Studio Code)
-          // to see the wireframe for each widget.
-          //
-          // Column has various properties to control how it sizes itself and
-          // how it positions its children. Here we use mainAxisAlignment to
-          // center the children vertically; the main axis here is the vertical
-          // axis because Columns are vertical (the cross axis would be
-          // horizontal).
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: <Widget>[
-            const Text(
-              'You have pushed the button this many times:',
-            ),
-            Text(
-              '$_counter',
-              style: Theme.of(context).textTheme.headlineMedium,
-            ),
-          ],
-        ),
-      ),
-      floatingActionButton: FloatingActionButton(
-        onPressed: _incrementCounter,
-        tooltip: 'Increment',
-        child: const Icon(Icons.add),
-      ), // This trailing comma makes auto-formatting nicer for build methods.
+    return Card(
+        child: Column(children: [
+      ListTile(
+          onTap: () {},
+          leading: Image.network(
+              'https://flutter.github.io/assets-for-api-docs/assets/widgets/owl-2.jpg'),
+          trailing: Image.network(
+              'https://flutter.github.io/assets-for-api-docs/assets/widgets/owl-2.jpg'),
+          title: const Text('Judul'),
+          subtitle: const Text("ini Subjudul"),
+          tileColor: Colors.white70),
+      Row(
+        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+        children: [
+          Container(
+              child: Column(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                Container(
+                    decoration: BoxDecoration(border: Border.all()),
+                    padding: EdgeInsets.all(14),
+                    child: Text('Hello World 1a')),
+                Container(
+                    decoration: BoxDecoration(border: Border.all()),
+                    padding: EdgeInsets.all(14),
+                    child: Text('Hello World 1b')),
+              ])),
+        ],
+      )
+    ]));
+  }
+}
+
+class ButtonNamaKelompok extends StatelessWidget {
+  const ButtonNamaKelompok({Key? key}) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return IconButton(
+      icon: Icon(Icons.account_circle_rounded),
+      onPressed: () {
+        // icon account di tap
+        showDialog<String>(
+          context: context,
+          builder: (BuildContext context) => AlertDialog(
+            title: const Text('Kelompok 7'),
+            content: const Text(
+                'Azzahra Siti Hadjar (azzahrasth@upi.edu), Najma Qalbi Dwiharani (najmadwiharani@upi.edu)'),
+            actions: <Widget>[
+              TextButton(
+                onPressed: () => Navigator.pop(context, 'OK'),
+                child: const Text('OK'),
+              ),
+            ],
+          ),
+        );
+      },
+    );
+  }
+}
+
+class ButtonPerjanjian extends StatelessWidget {
+  const ButtonPerjanjian({Key? key}) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return IconButton(
+      icon: Icon(Icons.access_alarm_rounded),
+      onPressed: () {
+        // icon setting ditap
+        const snackBar = SnackBar(
+          duration: Duration(seconds: 20),
+          content: Text(
+              'Kami berjanji tidak akan berbuat curang dan atau membantu kelompok lain berbuat curang'),
+        );
+        ScaffoldMessenger.of(context).showSnackBar(snackBar);
+      },
     );
   }
 }
