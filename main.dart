@@ -230,44 +230,6 @@ class Pendapatan {
       required this.danaKelolaan});
 }
 
-class Kartu extends StatelessWidget {
-  const Kartu({Key? key}) : super(key: key);
-
-  @override
-  Widget build(BuildContext context) {
-    return Card(
-        child: Column(children: [
-      ListTile(
-          onTap: () {},
-          leading: Image.network(
-              'https://flutter.github.io/assets-for-api-docs/assets/widgets/owl-2.jpg'),
-          trailing: Image.network(
-              'https://flutter.github.io/assets-for-api-docs/assets/widgets/owl-2.jpg'),
-          title: const Text('Judul'),
-          subtitle: const Text("ini Subjudul"),
-          tileColor: Colors.white70),
-      Row(
-        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-        children: [
-          Container(
-              child: Column(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                Container(
-                    decoration: BoxDecoration(border: Border.all()),
-                    padding: EdgeInsets.all(14),
-                    child: Text('Hello World 1a')),
-                Container(
-                    decoration: BoxDecoration(border: Border.all()),
-                    padding: EdgeInsets.all(14),
-                    child: Text('Hello World 1b')),
-              ])),
-        ],
-      )
-    ]));
-  }
-}
-
 class ButtonNamaKelompok extends StatelessWidget {
   const ButtonNamaKelompok({Key? key}) : super(key: key);
 
