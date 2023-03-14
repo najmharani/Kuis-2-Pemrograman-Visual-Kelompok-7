@@ -48,6 +48,39 @@ class MyAppState extends State<MyApp> {
       hargaUnit: 'Rp.1.270',
       danaKelolaan: 'Rp.306M',
     ),
+    Pendapatan(
+      gambar:
+          'https://flutter.github.io/assets-for-api-docs/assets/widgets/owl-2.jpg',
+      nama: 'Securinvest Sharia Sukuk Fund',
+      skor: '4,1',
+      jenis: 'Pendapatan Tetap',
+      imbalHasil1: '6.2%',
+      imbalHasil2: '8.5%',
+      hargaUnit: 'Rp.1.080',
+      danaKelolaan: 'Rp.3.3T',
+    ),
+    Pendapatan(
+      gambar:
+          'https://flutter.github.io/assets-for-api-docs/assets/widgets/owl-2.jpg',
+      nama: 'Start Stable Income Fund',
+      skor: '3.2',
+      jenis: 'Pendapatan Tetap',
+      imbalHasil1: '12%',
+      imbalHasil2: '50%',
+      hargaUnit: 'Rp.1.070',
+      danaKelolaan: 'Rp.256M',
+    ),
+    Pendapatan(
+      gambar:
+          'https://flutter.github.io/assets-for-api-docs/assets/widgets/owl-2.jpg',
+      nama: 'Syailendra Pendapatan Tetap Premium',
+      skor: '5.2',
+      jenis: 'Pendapatan Tetap',
+      imbalHasil1: '15%',
+      imbalHasil2: '66%',
+      hargaUnit: 'Rp.1.270',
+      danaKelolaan: 'Rp.306M',
+    ),
   ];
 
   bool imbalHasil = false;
@@ -63,52 +96,36 @@ class MyAppState extends State<MyApp> {
             actions: const <Widget>[ButtonNamaKelompok(), ButtonPerjanjian()]),
         body: Column(
           children: <Widget>[
-            Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: <Widget>[
-                Container(
-                  padding: EdgeInsets.all(14),
-                  child: Text(
-                    "Periode Imbal Hasil",
-                    style: const TextStyle(
-                        fontSize: 22.0,
-                        fontWeight: FontWeight.w500,
-                        color: Color.fromARGB(255, 66, 62, 62)),
+            Center(
+              child: Container(
+                padding: EdgeInsets.all(5),
+                child: DropdownButton(
+                  value: imbalHasil,
+                  underline: Container(
+                    decoration: const BoxDecoration(
+                        border: Border(
+                            bottom:
+                                BorderSide(width: 1.0, color: Colors.grey))),
                   ),
-                ),
-                Container(
-                  padding: EdgeInsets.all(14),
-                  child: DropdownButton(
-                    value: imbalHasil,
-                    underline: Container(
-                      decoration: const BoxDecoration(
-                          border: Border(
-                              bottom:
-                                  BorderSide(width: 1.0, color: Colors.grey))),
+                  items: const [
+                    DropdownMenuItem(
+                      value: false,
+                      child: Text("6 bulan"),
                     ),
-                    items: const [
-                      DropdownMenuItem(
-                        value: false,
-                        child: Text("6 bulan"),
-                      ),
-                      DropdownMenuItem(
-                        value: true,
-                        child: Text("1 tahun"),
-                      ),
-                    ],
-                    onChanged: (bool? newValue) {
-                      setState(() {
-                        if (newValue != null) {
-                          imbalHasil = newValue;
-                        }
-                      });
-                    },
-                  ),
+                    DropdownMenuItem(
+                      value: true,
+                      child: Text("1 tahun"),
+                    ),
+                  ],
+                  onChanged: (bool? newValue) {
+                    setState(() {
+                      if (newValue != null) {
+                        imbalHasil = newValue;
+                      }
+                    });
+                  },
                 ),
-              ],
-            ),
-            const SizedBox(
-              height: 16.0,
+              ),
             ),
             Expanded(
                 child: ListView.builder(
@@ -120,9 +137,15 @@ class MyAppState extends State<MyApp> {
                             onTap: () {},
                             leading: Image.network("${data[index].gambar}"),
                             trailing: Image.network("${data[index].gambar}"),
-                            title: Text("${data[index].nama}"),
-                            subtitle: Text(
-                                "${data[index].skor} - ${data[index].jenis}"),
+                            title: Center(child: Text("${data[index].nama}")),
+                            subtitle: Center(
+                                child: Row(
+                                    mainAxisAlignment: MainAxisAlignment.center,
+                                    children: [
+                                  Icon(Icons.star, size: 18),
+                                  Text(
+                                      " ${data[index].skor} - ${data[index].jenis}")
+                                ])),
                             tileColor: Colors.white70),
                         Row(
                           mainAxisAlignment: MainAxisAlignment.spaceEvenly,
@@ -133,11 +156,13 @@ class MyAppState extends State<MyApp> {
                                     children: [
                                   Container(
                                       decoration: BoxDecoration(),
-                                      padding: EdgeInsets.all(14),
+                                      padding: EdgeInsets.only(
+                                          left: 15, right: 15, bottom: 5),
                                       child: Text('Imbal Hasil')),
                                   Container(
                                       decoration: BoxDecoration(),
-                                      padding: EdgeInsets.all(14),
+                                      padding: EdgeInsets.only(
+                                          left: 15, right: 15, bottom: 5),
                                       child: imbalHasil
                                           ? Text("${data[index].imbalHasil2}")
                                           : Text("${data[index].imbalHasil1}")),
@@ -148,11 +173,13 @@ class MyAppState extends State<MyApp> {
                                     children: [
                                   Container(
                                       decoration: BoxDecoration(),
-                                      padding: EdgeInsets.all(14),
+                                      padding: EdgeInsets.only(
+                                          left: 15, right: 15, bottom: 5),
                                       child: Text('Harga Unit')),
                                   Container(
                                       decoration: BoxDecoration(),
-                                      padding: EdgeInsets.all(14),
+                                      padding: EdgeInsets.only(
+                                          left: 15, right: 15, bottom: 5),
                                       child: Text("${data[index].hargaUnit}")),
                                 ])),
                             Container(
@@ -161,11 +188,13 @@ class MyAppState extends State<MyApp> {
                                     children: [
                                   Container(
                                       decoration: BoxDecoration(),
-                                      padding: EdgeInsets.all(14),
+                                      padding: EdgeInsets.only(
+                                          left: 15, right: 15, bottom: 5),
                                       child: Text('Dana Kelolaan')),
                                   Container(
                                       decoration: BoxDecoration(),
-                                      padding: EdgeInsets.all(14),
+                                      padding: EdgeInsets.only(
+                                          left: 15, right: 15, bottom: 5),
                                       child:
                                           Text("${data[index].danaKelolaan}")),
                                 ])),
